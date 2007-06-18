@@ -1,5 +1,7 @@
 package org.lastbamboo.common.offer;
 
+import java.io.IOException;
+
 import org.apache.mina.common.ByteBuffer;
 
 /**
@@ -14,6 +16,7 @@ public interface OfferProcessor
      * 
      * @param offer The offer.
      * @return The answer to the offer.
+     * @throws IOException If there's an IO error producing the answer.
      */
-    ByteBuffer answer(final ByteBuffer offer);
+    ByteBuffer answer(ByteBuffer offer) throws IOException;
     }
