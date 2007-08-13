@@ -28,4 +28,12 @@ public interface OfferAnswer
     
     Socket createSocket(ByteBuffer answer) throws IOException;
 
+    /**
+     * Tells an answerer to process its offer.
+     * 
+     * @param offer The offer.
+     * @throws IOException If there's an error decoding the offer.
+     */
+    void processOffer(ByteBuffer offer) throws IOException;
+
     }
