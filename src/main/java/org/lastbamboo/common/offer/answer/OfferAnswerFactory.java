@@ -14,6 +14,7 @@ public interface OfferAnswerFactory
     /**
      * Creates a new class for creating offers and processing answers.
      * 
+     * @param listener Listener for events during the offer/answer exchange. 
      * @return A new class for creating offers and processing answers.
      */
     OfferAnswer createOfferer();
@@ -22,9 +23,13 @@ public interface OfferAnswerFactory
      * Creates a new class for processing offers and creating answers.
      * 
      * @param offer The offer.
+     * @param listener Listener for events during the offer/answer exchange. 
      * @return A new class for processing offers and creating answers.
      * @throws IOException If we could not understand the offer from the 
      * remote host.
      */
     OfferAnswer createAnswerer(ByteBuffer offer) throws IOException;
+
+    SocketOfferAnswer createSocketOfferer();
+
     }
