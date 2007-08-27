@@ -28,8 +28,13 @@ public interface OfferAnswerFactory
      * @throws IOException If we could not understand the offer from the 
      * remote host.
      */
-    OfferAnswer createAnswerer(ByteBuffer offer) throws IOException;
+    MediaOfferAnswer createAnswerer(ByteBuffer offer) throws IOException;
 
-    SocketOfferAnswer createSocketOfferer();
+    /**
+     * Creates an offerer that establishes a media session.
+     * 
+     * @return The offerer.
+     */
+    MediaOfferAnswer createMediaOfferer();
 
     }
