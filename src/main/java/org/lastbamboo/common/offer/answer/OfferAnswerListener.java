@@ -12,7 +12,9 @@ public interface OfferAnswerListener
      * any processing associated with the exchange.  This is implementation
      * dependent, but with ICE, for example, the offer/answer might be 
      * considered completed when ICE has finished processing.
+     * 
+     * @param mediaOfferAnswer The {@link MediaOfferAnswer} that's complete. 
      */
-    void onOfferAnswerComplete();
+    void onOfferAnswerComplete(MediaOfferAnswer mediaOfferAnswer);
 
     }
