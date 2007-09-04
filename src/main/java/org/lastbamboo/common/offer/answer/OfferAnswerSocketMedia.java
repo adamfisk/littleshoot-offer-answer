@@ -15,12 +15,16 @@ public class OfferAnswerSocketMedia implements OfferAnswerMedia
      * 
      * @param socket The socket the media session runs over.
      */
-    public OfferAnswerSocketMedia(Socket socket)
+    public OfferAnswerSocketMedia(final Socket socket)
         {
+        if (socket == null)
+            {
+            throw new NullPointerException("Null socket!!");
+            }
         m_socket = socket;
         }
 
-    public <T> T accept(OfferAnswerMediaVisitor<T> mediaVisitor)
+    public <T> T accept(final OfferAnswerMediaVisitor<T> mediaVisitor)
         {
         return mediaVisitor.visitSocketMedia(this);
         }
