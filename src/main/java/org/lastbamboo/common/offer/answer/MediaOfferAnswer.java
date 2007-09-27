@@ -14,4 +14,9 @@ public interface MediaOfferAnswer extends OfferAnswer
      */
     void startMedia(OfferAnswerMediaListener mediaListener);
 
+    /**
+     * Perform any necessary close operations for the media.
+     */
+    void close();
+
     }
