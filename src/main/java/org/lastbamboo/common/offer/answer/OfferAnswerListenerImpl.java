@@ -29,6 +29,7 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
     
     public void onOfferAnswerComplete(final MediaOfferAnswer offerAnswer)
         {
+        m_log.debug("Got offer/answer complete!!");
         final OfferAnswerMediaListener mediaListener =
             new OfferAnswerMediaListener()
             {
@@ -42,8 +43,14 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
                         final OfferAnswerSocketMedia socketMedia)
                         {
                         final Socket sock = socketMedia.getSocket();
+                        if (sock == null)
+                            {
+                            throw new NullPointerException("null socket!!");
+                            }
                         try
                             {
+                            m_log.debug("Sending server side socket to " +
+                                "handler");
                             m_socketHandler.handleSocket(sock);
                             }
                         catch (final IOException e)
