@@ -1,6 +1,5 @@
 package org.lastbamboo.common.offer.answer;
 
-
 /**
  * Listener for events from an offer/answer exchange. 
  */
@@ -16,5 +15,13 @@ public interface OfferAnswerListener
      * @param mediaOfferAnswer The {@link MediaOfferAnswer} that's complete. 
      */
     void onOfferAnswerComplete(MediaOfferAnswer mediaOfferAnswer);
+
+    /**
+     * Called when an offer/answer exchange failed, with definitions of 
+     * failure depending on the specific type of offer/answer.
+     * 
+     * @param mediaOfferAnswer The {@link MediaOfferAnswer} that failed.
+     */
+    void onOfferAnswerFailed(MediaOfferAnswer mediaOfferAnswer);
 
     }

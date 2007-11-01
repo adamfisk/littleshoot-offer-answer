@@ -75,4 +75,10 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
         offerAnswer.startMedia(mediaListener);
         }
 
+    public void onOfferAnswerFailed(final MediaOfferAnswer mediaOfferAnswer)
+        {
+        m_log.warn("Offer/Answer failed.  Not starting media for: {}",
+            mediaOfferAnswer);
+        }
+
     }
