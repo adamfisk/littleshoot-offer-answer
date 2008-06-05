@@ -3,6 +3,7 @@ package org.lastbamboo.common.offer.answer;
 import java.io.IOException;
 import java.net.Socket;
 
+import org.lastbamboo.common.util.RelayingSocketHandler;
 import org.lastbamboo.common.util.SocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +15,13 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
     {
 
     private final Logger m_log = LoggerFactory.getLogger(getClass());
-    private final SocketHandler m_socketHandler;
 
     /**
      * Creates a new listener for RUDP server sockets.  These get past along
      * to a socket processing class.
-     * 
-     * @param socketHandler The class that handles incoming sockets.
      */
-    public OfferAnswerListenerImpl(final SocketHandler socketHandler)
+    public OfferAnswerListenerImpl()
         {
-        m_socketHandler = socketHandler;
         }
     
     public void onOfferAnswerComplete(final MediaOfferAnswer offerAnswer)
@@ -51,7 +48,10 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
                             {
                             m_log.debug("Sending server side socket to " +
                                 "handler");
-                            m_socketHandler.handleSocket(sock);
+                            
+                            final SocketHandler sa = 
+                                new RelayingSocketHandler(sock);
+                            sa.handleSocket();
                             }
                         catch (final IOException e)
                             {
