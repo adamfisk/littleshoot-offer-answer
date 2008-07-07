@@ -42,6 +42,7 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
                         final Socket sock = socketMedia.getSocket();
                         if (sock == null)
                             {
+                            m_log.warn("Null socket!!!");
                             throw new NullPointerException("null socket!!");
                             }
                         try
@@ -49,6 +50,9 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
                             m_log.debug("Sending server side socket to " +
                                 "handler");
                             
+                            // Set a timeout cap.  Jetty sets this to 200 
+                            // seconds, but we're a little more aggressive.
+                            sock.setSoTimeout(60 * 1000);
                             final SocketHandler sa = 
                                 new RelayingSocketHandler(sock);
                             sa.handleSocket();
