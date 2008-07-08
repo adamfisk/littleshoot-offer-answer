@@ -50,9 +50,13 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
                             m_log.debug("Sending server side socket to " +
                                 "handler");
                             
-                            // Set a timeout cap.  Jetty sets this to 200 
-                            // seconds, but we're a little more aggressive.
-                            sock.setSoTimeout(60 * 1000);
+                            // Set a timeout cap.  We set this really high
+                            // because clients can request large content 
+                            // lengths.  In that case, we won't read anything
+                            // from them for a long time since they're doing
+                            // all the reading.  Jetty uses 200 seconds by
+                            // default.
+                            sock.setSoTimeout(200 * 1000);
                             final SocketHandler sa = 
                                 new RelayingSocketHandler(sock);
                             sa.handleSocket();
