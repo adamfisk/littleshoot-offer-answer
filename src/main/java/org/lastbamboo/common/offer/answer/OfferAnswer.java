@@ -1,7 +1,5 @@
 package org.lastbamboo.common.offer.answer;
 
-import java.io.IOException;
-
 import org.apache.mina.common.ByteBuffer;
 
 /**
@@ -30,19 +28,17 @@ public interface OfferAnswer
      * 
      * @param answer The answer.
      * @param offerAnswerListener Listener for offer/answer events.
-     * @throws IOException If there's an error decoding the answer.
      */
     void processAnswer(ByteBuffer answer, 
-        OfferAnswerListener offerAnswerListener) throws IOException;
+        OfferAnswerListener offerAnswerListener);
 
     /**
      * Tells an answerer to process its offer.
      * 
      * @param offer The offer.
      * @param offerAnswerListener Listener for offer/answer events.
-     * @throws IOException If there's an error decoding the offer.
      */
     void processOffer(ByteBuffer offer,
-        OfferAnswerListener offerAnswerListener) throws IOException;
+        OfferAnswerListener offerAnswerListener);
 
     }
