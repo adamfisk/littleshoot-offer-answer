@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import org.lastbamboo.common.util.RelayingSocketHandler;
-import org.lastbamboo.common.util.SocketHandler;
+import org.lastbamboo.common.util.SocketListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,13 +15,15 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
     {
 
     private final Logger m_log = LoggerFactory.getLogger(getClass());
+    private final SocketListener m_socketListener;
 
     /**
      * Creates a new listener for RUDP server sockets.  These get past along
      * to a socket processing class.
      */
-    public OfferAnswerListenerImpl()
+    public OfferAnswerListenerImpl(final SocketListener socketListener)
         {
+        this.m_socketListener = socketListener;
         }
     
     public void onOfferAnswerComplete(final MediaOfferAnswer offerAnswer)
@@ -57,9 +59,11 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
                             // all the reading.  Jetty uses 200 seconds by
                             // default.
                             sock.setSoTimeout(200 * 1000);
-                            final SocketHandler sa = 
-                                new RelayingSocketHandler(sock);
-                            sa.handleSocket();
+                            //final SocketListener sl = 
+                            //    new RelayingSocketHandler();
+                            
+                            m_socketListener.onSocket(sock);
+                            //sa.handleSocket();
                             }
                         catch (final IOException e)
                             {
