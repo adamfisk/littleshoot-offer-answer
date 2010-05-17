@@ -1,6 +1,6 @@
 package org.lastbamboo.common.offer.answer;
 
-import org.apache.mina.common.ByteBuffer;
+import org.littleshoot.mina.common.ByteBuffer;
 
 /**
  * Interface for factories that create classes the create offers and process
