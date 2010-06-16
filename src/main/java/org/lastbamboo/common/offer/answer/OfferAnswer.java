@@ -29,16 +29,24 @@ public interface OfferAnswer
      * @param answer The answer.
      * @param offerAnswerListener Listener for offer/answer events.
      */
-    void processAnswer(ByteBuffer answer, 
-        OfferAnswerListener offerAnswerListener);
+    void processAnswer(ByteBuffer answer);
 
     /**
      * Tells an answerer to process its offer.
      * 
      * @param offer The offer.
-     * @param offerAnswerListener Listener for offer/answer events.
      */
-    void processOffer(ByteBuffer offer,
-        OfferAnswerListener offerAnswerListener);
+    void processOffer(ByteBuffer offer);
 
+    /**
+     * Perform any necessary close operations for the media.
+     */
+    void close();
+
+    void closeUdp();
+
+    void closeTcp();
+
+    void useRelay();
+    
     }

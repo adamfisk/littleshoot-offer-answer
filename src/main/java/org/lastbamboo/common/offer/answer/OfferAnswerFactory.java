@@ -1,6 +1,5 @@
 package org.lastbamboo.common.offer.answer;
 
-import org.littleshoot.mina.common.ByteBuffer;
 
 /**
  * Interface for factories that create classes the create offers and process
@@ -17,7 +16,8 @@ public interface OfferAnswerFactory
      * @throws OfferAnswerConnectException If there's an error connecting the
      * offerer.
      */
-    OfferAnswer createOfferer() throws OfferAnswerConnectException;
+    OfferAnswer createOfferer(OfferAnswerListener listener) 
+        throws OfferAnswerConnectException;
     
     /**
      * Creates a new class for processing offers and creating answers.
@@ -28,16 +28,7 @@ public interface OfferAnswerFactory
      * @throws OfferAnswerConnectException If there's an error connecting the
      * answerer.
      */
-    MediaOfferAnswer createAnswerer(ByteBuffer offer)
+    OfferAnswer createAnswerer(OfferAnswerListener listener) 
         throws OfferAnswerConnectException;
-
-    /**
-     * Creates an offerer that establishes a media session.
-     * 
-     * @return The offerer.
-     * @throws OfferAnswerConnectException If there's an error connecting the
-     * offerer.
-     */
-    MediaOfferAnswer createMediaOfferer() throws OfferAnswerConnectException;
 
     }

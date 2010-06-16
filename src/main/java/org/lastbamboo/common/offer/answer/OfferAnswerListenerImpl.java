@@ -24,72 +24,47 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
         {
         this.m_socketListener = socketListener;
         }
-    
-    public void onOfferAnswerComplete(final MediaOfferAnswer offerAnswer)
-        {
-        m_log.debug("Got offer/answer complete!!");
-        final OfferAnswerMediaListener mediaListener =
-            new OfferAnswerMediaListener()
-            {
-            public void onMedia(final OfferAnswerMedia media)
-                {
-                final OfferAnswerMediaVisitor<Void> mediaVisitor =
-                    new OfferAnswerMediaVisitor<Void>()
-                    {
-    
-                    public Void visitSocketMedia(
-                        final OfferAnswerSocketMedia socketMedia)
-                        {
-                        final Socket sock = socketMedia.getSocket();
-                        if (sock == null)
-                            {
-                            m_log.warn("Null socket!!!");
-                            throw new NullPointerException("null socket!!");
-                            }
-                        try
-                            {
-                            m_log.debug("Sending server side socket to " +
-                                "handler");
-                            
-                            // Set a timeout cap.  We set this really high
-                            // because clients can request large content 
-                            // lengths.  In that case, we won't read anything
-                            // from them for a long time since they're doing
-                            // all the reading.  Jetty uses 200 seconds by
-                            // default.
-                            sock.setSoTimeout(200 * 1000);
-                            //final SocketListener sl = 
-                            //    new RelayingSocketHandler();
-                            
-                            m_socketListener.onSocket(sock);
-                            //sa.handleSocket();
-                            }
-                        catch (final IOException e)
-                            {
-                            m_log.debug("Exception on socket", e);
-                            try
-                                {
-                                sock.close();
-                                }
-                            catch (final IOException e1)
-                                {
-                                m_log.warn("Could not close socket", e1);
-                                }
-                            }
-                        return null;
-                        }
-                    
-                    };
-                media.accept(mediaVisitor);
-                }
-            };
-        offerAnswer.startMedia(mediaListener);
-        }
 
-    public void onOfferAnswerFailed(final MediaOfferAnswer mediaOfferAnswer)
+    public void onOfferAnswerFailed(final OfferAnswer offerAnswer)
         {
         m_log.warn("Offer/Answer failed.  Not starting media for: {}",
-            mediaOfferAnswer);
+            offerAnswer);
         }
 
+    public void onTcpSocket(final Socket sock)
+        {
+        onSocket(sock);
+        }
+    
+    public void onUdpSocket(final Socket sock)
+        {
+        onSocket(sock);
+        }
+    
+    private void onSocket(final Socket sock)
+        {
+        // Set a timeout cap.  We set this really high
+        // because clients can request large content 
+        // lengths.  In that case, we won't read anything
+        // from them for a long time since they're doing
+        // all the reading.  Jetty uses 200 seconds by
+        // default.
+        try
+            {
+            sock.setSoTimeout(200 * 1000);
+            m_socketListener.onSocket(sock);
+            }
+        catch (final IOException e)
+            {
+            m_log.warn("Exception processing socket", e);
+            try
+                {
+                sock.close();
+                }
+            catch (final IOException e1)
+                {
+                m_log.warn("Could not close socket", e1);
+                }
+            }
+        }
     }
