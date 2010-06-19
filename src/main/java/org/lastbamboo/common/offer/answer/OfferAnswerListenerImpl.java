@@ -43,15 +43,15 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
     
     private void onSocket(final Socket sock)
         {
-        // Set a timeout cap.  We set this really high
+        // Set a timeout cap. We set this really high
         // because clients can request large content 
-        // lengths.  In that case, we won't read anything
+        // lengths. In that case, we won't read anything
         // from them for a long time since they're doing
-        // all the reading.  Jetty uses 200 seconds by
+        // all the reading. Jetty uses 200 seconds by
         // default.
         try
             {
-            sock.setSoTimeout(200 * 1000);
+            sock.setSoTimeout(40 * 60 * 1000);
             m_socketListener.onSocket(sock);
             }
         catch (final IOException e)
