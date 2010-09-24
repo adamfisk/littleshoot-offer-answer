@@ -33,17 +33,19 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener
 
     public void onTcpSocket(final Socket sock)
         {
+        m_log.info("Received TCP socket");
         onSocket(sock);
         }
     
     public void onUdpSocket(final Socket sock)
         {
+        m_log.info("Received UDP socket");
         onSocket(sock);
         }
     
     private void onSocket(final Socket sock)
         {
-        m_log.info("Sending socket to listener!!");
+        m_log.info("Got socket on listener!!");
         // Set a timeout cap. We set this really high
         // because clients can request large content 
         // lengths. In that case, we won't read anything
