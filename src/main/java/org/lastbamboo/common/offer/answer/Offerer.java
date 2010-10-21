@@ -10,7 +10,8 @@ public interface Offerer
     {
 
     /**
-     * Send an offer to the specified URI.
+     * Send an offer to the specified URI. Implementations of this method
+     * SHOULD NOT BLOCK.
      * 
      * @param uri The URI indicating the user/machine to send the offer to.
      * @param offer The raw offer data itself.
