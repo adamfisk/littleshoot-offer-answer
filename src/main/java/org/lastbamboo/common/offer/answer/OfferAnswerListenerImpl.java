@@ -3,7 +3,7 @@ package org.lastbamboo.common.offer.answer;
 import java.io.IOException;
 import java.net.Socket;
 
-import org.lastbamboo.common.util.SocketListener;
+import org.littleshoot.util.SocketListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
