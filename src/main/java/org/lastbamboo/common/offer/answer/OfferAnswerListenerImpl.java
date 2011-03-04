@@ -8,18 +8,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class that listens for creation of RUDP sockets on the server side.
+ * Class that listens for creation of sockets on the server/answerer side.
  */
 public class OfferAnswerListenerImpl implements OfferAnswerListener {
 
     private final Logger m_log = LoggerFactory.getLogger(getClass());
     private final SocketListener m_socketListener;
+    private final String id;
 
     /**
      * Creates a new listener for RUDP server sockets. These get past along to a
      * socket processing class.
+     * 
+     * @param id The ID of the incoming "caller."
+     * @param socketListener The listener for any sockets that are created.
      */
-    public OfferAnswerListenerImpl(final SocketListener socketListener) {
+    public OfferAnswerListenerImpl(final String id, 
+        final SocketListener socketListener) {
+        this.id = id;
         this.m_socketListener = socketListener;
     }
 
