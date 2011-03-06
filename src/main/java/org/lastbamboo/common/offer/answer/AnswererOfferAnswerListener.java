@@ -3,17 +3,17 @@ package org.lastbamboo.common.offer.answer;
 import java.io.IOException;
 import java.net.Socket;
 
-import org.littleshoot.util.SocketListener;
+import org.littleshoot.util.SessionSocketListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Class that listens for creation of sockets on the server/answerer side.
  */
-public class OfferAnswerListenerImpl implements OfferAnswerListener {
+public class AnswererOfferAnswerListener implements OfferAnswerListener {
 
     private final Logger m_log = LoggerFactory.getLogger(getClass());
-    private final SocketListener m_socketListener;
+    private final SessionSocketListener m_socketListener;
     private final String id;
 
     /**
@@ -23,8 +23,8 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener {
      * @param id The ID of the incoming "caller."
      * @param socketListener The listener for any sockets that are created.
      */
-    public OfferAnswerListenerImpl(final String id, 
-        final SocketListener socketListener) {
+    public AnswererOfferAnswerListener(final String id, 
+        final SessionSocketListener socketListener) {
         this.id = id;
         this.m_socketListener = socketListener;
     }
@@ -54,7 +54,7 @@ public class OfferAnswerListenerImpl implements OfferAnswerListener {
         // default.
         try {
             sock.setSoTimeout(40 * 60 * 1000);
-            m_socketListener.onSocket(sock);
+            m_socketListener.onSocket(this.id, sock);
         } catch (final IOException e) {
             m_log.warn("Exception processing socket", e);
             try {
