@@ -20,7 +20,7 @@ public final class IceMediaStreamDesc {
      * @return A new stream description for an unreliable UDP stream.
      */
     public static IceMediaStreamDesc newUnreliableUdpStream() {
-        return new IceMediaStreamDesc(false, true, "message", "udp", 1, true, 
+        return new IceMediaStreamDesc(false, true, "application", "udp", 1, true, 
             false);
     }
     
@@ -70,7 +70,7 @@ public final class IceMediaStreamDesc {
      * @param numComponents The number of components in the media stream.
      * @param useRelay Whether or not to use relay (TURN) servers.
      */
-    private IceMediaStreamDesc(final boolean tcp, final boolean udp,
+    public IceMediaStreamDesc(final boolean tcp, final boolean udp,
             final String mimeContentType, final String mimeContentSubtype,
             final int numComponents, final boolean useRelay,
             final boolean reliable) {
