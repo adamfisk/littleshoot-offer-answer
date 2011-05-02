@@ -3,6 +3,8 @@ package org.lastbamboo.common.offer.answer;
 import java.io.IOException;
 import java.net.URI;
 
+import org.littleshoot.util.KeyStorage;
+
 /**
  * Interface for classes that send offers to other peers.
  */
@@ -20,6 +22,7 @@ public interface Offerer
      * @throws IOException If there's an IO error sending the offer.
      */
     void offer(URI uri, byte[] offer, 
-        OfferAnswerTransactionListener transactionListener) throws IOException;
+        OfferAnswerTransactionListener transactionListener, KeyStorage keyStore) 
+        throws IOException;
 
     }

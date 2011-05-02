@@ -1,6 +1,7 @@
 package org.lastbamboo.common.offer.answer;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Collection;
 
@@ -9,6 +10,7 @@ import org.lastbamboo.common.sdp.api.MediaDescription;
 import org.lastbamboo.common.sdp.api.SdpException;
 import org.lastbamboo.common.sdp.api.SdpFactory;
 import org.lastbamboo.common.sdp.api.SessionDescription;
+import org.littleshoot.util.RelayingSocketHandler;
 import org.littleshoot.util.SessionSocketListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,29 +21,34 @@ import org.slf4j.LoggerFactory;
 public class AnswererOfferAnswerListener implements OfferAnswerListener {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private final SessionSocketListener socketListener;
     private final String id;
     private final SessionSocketListener callSocketListener;
     private final boolean message;
+    private final InetSocketAddress plainTextRelayAddress;
+    private final byte[] writeKey;
+    private final byte[] readKey;
 
     /**
      * Creates a new listener for RUDP server sockets. These get past along to a
      * socket processing class.
      * 
      * @param id The ID of the incoming "caller."
-     * @param socketListener The listener for any sockets that are created.
+     * @param plainTextRelayAddress The address to relay data to.
      * @param callSocketListener The listener for incoming calls.
      * @param offer The raw offer. 
      * @throws OfferAnswerConnectException If there's an error parsing the 
      * SDP
      */
     public AnswererOfferAnswerListener(final String id, 
-        final SessionSocketListener socketListener,
+        final InetSocketAddress plainTextRelayAddress,
         final SessionSocketListener callSocketListener, 
-        final String offer) throws OfferAnswerConnectException {
+        final String offer, final byte[] writeKey, final byte[] readKey) 
+        throws OfferAnswerConnectException {
         this.id = id;
-        this.socketListener = socketListener;
+        this.plainTextRelayAddress = plainTextRelayAddress;
         this.callSocketListener = callSocketListener;
+        this.writeKey = writeKey;
+        this.readKey = readKey;
         this.message = isMessage(offer);
     }
 
@@ -101,7 +108,11 @@ public class AnswererOfferAnswerListener implements OfferAnswerListener {
             // We use the "normal" socket listener for MIME message types
             // and otherwise the call listener.
             if (message) {
-                socketListener.onSocket(this.id, sock);
+                final RelayingSocketHandler rsh = 
+                    new RelayingSocketHandler(this.plainTextRelayAddress, 
+                        this.readKey, this.writeKey);
+                rsh.onSocket(id, sock);
+                //socketListener.onSocket(this.id, sock);
             } else {
                 callSocketListener.onSocket(this.id, sock);
             }
