@@ -111,7 +111,7 @@ public class AnswererOfferAnswerListener implements OfferAnswerListener {
                 final RelayingSocketHandler rsh = 
                     new RelayingSocketHandler(this.plainTextRelayAddress, 
                         this.readKey, this.writeKey);
-                rsh.onSocket(id, sock);
+                rsh.onSocket(this.id, sock);
                 //socketListener.onSocket(this.id, sock);
             } else {
                 callSocketListener.onSocket(this.id, sock);
