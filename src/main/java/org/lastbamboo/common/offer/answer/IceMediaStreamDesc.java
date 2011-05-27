@@ -24,6 +24,19 @@ public final class IceMediaStreamDesc {
             false);
     }
     
+
+    /**
+     * Creates a new stream description for a raw UDP stream that's not 
+     * reliable and doesn't use a relay.
+     * 
+     * @return A new stream description for an unreliable UDP stream.
+     */
+
+    public static IceMediaStreamDesc newUnreliableUdpStreamNoRelay() {
+        return new IceMediaStreamDesc(false, true, "application", "udp", 1, 
+            false, false);
+    }
+    
     /**
      * Create a new reliable stream for HTTP traffic over either TCP or 
      * reliable UDP.
@@ -32,6 +45,17 @@ public final class IceMediaStreamDesc {
      */
     public static IceMediaStreamDesc newReliable() {
         return new IceMediaStreamDesc(true, true, "message", "http", 1, true, 
+            true);
+    }
+    
+    /**
+     * Create a new reliable stream for HTTP traffic over either TCP or 
+     * reliable UDP, but that doesn't use relays.
+     * 
+     * @return The new stream description.
+     */
+    public static IceMediaStreamDesc newReliableNoRelay() {
+        return new IceMediaStreamDesc(true, true, "message", "http", 1, false, 
             true);
     }
     
