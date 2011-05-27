@@ -24,11 +24,12 @@ public interface OfferAnswerFactory
      * 
      * @param offer The offer.
      * @param listener Listener for events during the offer/answer exchange. 
+     * @param useRelay Whether or not to use a relay.
      * @return A new class for processing offers and creating answers.
      * @throws OfferAnswerConnectException If there's an error connecting the
      * answerer.
      */
-    OfferAnswer createAnswerer(OfferAnswerListener listener) 
+    OfferAnswer createAnswerer(OfferAnswerListener listener, boolean useRelay) 
         throws OfferAnswerConnectException;
 
     }
