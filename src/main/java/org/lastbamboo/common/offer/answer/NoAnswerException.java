@@ -1,11 +1,10 @@
 package org.lastbamboo.common.offer.answer;
 
-import java.io.IOException;
 
 /**
  * Exception for when there's not answer to an offer/answer exchange.
  */
-public class NoAnswerException extends IOException {
+public class NoAnswerException extends Exception {
 
     private static final long serialVersionUID = 8243953563871685981L;
 
