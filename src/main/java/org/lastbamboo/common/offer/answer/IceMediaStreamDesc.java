@@ -44,8 +44,8 @@ public final class IceMediaStreamDesc {
      * @return The new stream description.
      */
     public static IceMediaStreamDesc newReliable() {
-        return new IceMediaStreamDesc(true, true, "message", "http", 1, true, 
-            true);
+        return new IceMediaStreamDesc(IceConfig.isTcp(), IceConfig.isUdp(), 
+            "message", "http", 1, true, true);
     }
     
     /**
@@ -55,14 +55,30 @@ public final class IceMediaStreamDesc {
      * @return The new stream description.
      */
     public static IceMediaStreamDesc newReliableNoRelay() {
-        return new IceMediaStreamDesc(true, true, "message", "http", 1, false, 
-            true);
+        return new IceMediaStreamDesc(IceConfig.isTcp(), IceConfig.isUdp(), 
+            "message", "http", 1, false, true);
     }
     
 
     public static IceMediaStreamDesc allStreams() {
         return new IceMediaStreamDesc(true, true, "message", "http", 1, true, 
             true);
+    }
+    
+    /**
+     * Creates a new media stream description with all the information 
+     * necessary for ICE to establish the stream.
+     * 
+     * @param mimeContentType The MIME content type for SDP.
+     * @param mimeContentSubtype The MIME content subtype.
+     * @param numComponents The number of components in the media stream.
+     * @param useRelay Whether or not to use relay (TURN) servers.
+     */
+    public IceMediaStreamDesc(
+            final String mimeContentType, final String mimeContentSubtype,
+            final int numComponents, final boolean useRelay) {
+        this(IceConfig.isTcp(), IceConfig.isUdp(), mimeContentType, 
+            mimeContentSubtype, numComponents, useRelay, true);
     }
     
     /**
