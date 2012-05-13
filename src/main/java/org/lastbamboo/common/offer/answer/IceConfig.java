@@ -8,6 +8,8 @@ public class IceConfig {
     private static boolean tcp = true;
     private static boolean udp = true;
     
+    private static String[] cipherSuites = null;
+    
     /**
      * Sets whether or not to use UDP.
      * 
@@ -45,4 +47,13 @@ public class IceConfig {
     public static boolean isTcp() {
         return tcp;
     }
+
+    public static void setCipherSuites(final String[] cipherSuites) {
+        IceConfig.cipherSuites = cipherSuites;
+    }
+
+    public static String[] getCipherSuites() {
+        return cipherSuites;
+    }
+
 }
