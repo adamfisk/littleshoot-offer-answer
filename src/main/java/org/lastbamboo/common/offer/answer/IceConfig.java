@@ -10,6 +10,8 @@ public class IceConfig {
     
     private static String[] cipherSuites = null;
     
+    private static boolean disableUdpOnLocalNetwork = true;
+    
     /**
      * Sets whether or not to use UDP.
      * 
@@ -54,6 +56,15 @@ public class IceConfig {
 
     public static String[] getCipherSuites() {
         return cipherSuites;
+    }
+
+    public static void setDisableUdpOnLocalNetwork(
+        final boolean disableUdpOnLocalNetwork) {
+        IceConfig.disableUdpOnLocalNetwork = disableUdpOnLocalNetwork;
+    }
+
+    public static boolean isDisableUdpOnLocalNetwork() {
+        return disableUdpOnLocalNetwork;
     }
 
 }
