@@ -25,8 +25,8 @@ public class AnswererOfferAnswerListener implements OfferAnswerListener {
     private final SessionSocketListener callSocketListener;
     private final boolean message;
     private final InetSocketAddress plainTextRelayAddress;
-    private final byte[] writeKey;
-    private final byte[] readKey;
+    //private final byte[] writeKey;
+    //private final byte[] readKey;
 
     /**
      * Creates a new listener for RUDP server sockets. These get past along to a
@@ -42,13 +42,13 @@ public class AnswererOfferAnswerListener implements OfferAnswerListener {
     public AnswererOfferAnswerListener(final String id, 
         final InetSocketAddress plainTextRelayAddress,
         final SessionSocketListener callSocketListener, 
-        final String offer, final byte[] writeKey, final byte[] readKey) 
+        final String offer) 
         throws OfferAnswerConnectException {
         this.id = id;
         this.plainTextRelayAddress = plainTextRelayAddress;
         this.callSocketListener = callSocketListener;
-        this.writeKey = writeKey;
-        this.readKey = readKey;
+        //this.writeKey = writeKey;
+        //this.readKey = readKey;
         this.message = isMessage(offer);
     }
 
@@ -109,8 +109,7 @@ public class AnswererOfferAnswerListener implements OfferAnswerListener {
             // and otherwise the call listener.
             if (message) {
                 final RelayingSocketHandler rsh = 
-                    new RelayingSocketHandler(this.plainTextRelayAddress, 
-                        this.readKey, this.writeKey);
+                    new RelayingSocketHandler(this.plainTextRelayAddress);
                 rsh.onSocket(this.id, sock);
                 //socketListener.onSocket(this.id, sock);
             } else {
