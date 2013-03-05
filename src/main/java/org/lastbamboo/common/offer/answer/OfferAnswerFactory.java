@@ -5,7 +5,7 @@ package org.lastbamboo.common.offer.answer;
  * Interface for factories that create classes the create offers and process
  * answers. 
  */
-public interface OfferAnswerFactory {
+public interface OfferAnswerFactory<T> {
 
     /**
      * Creates a new class for creating offers and processing answers.
@@ -16,7 +16,7 @@ public interface OfferAnswerFactory {
      * @throws OfferAnswerConnectException If there's an error connecting the
      * offerer.
      */
-    OfferAnswer createOfferer(OfferAnswerListener listener, 
+    OfferAnswer createOfferer(OfferAnswerListener<T> listener, 
         IceMediaStreamDesc desc) throws OfferAnswerConnectException;
     
     /**
@@ -29,7 +29,7 @@ public interface OfferAnswerFactory {
      * @throws OfferAnswerConnectException If there's an error connecting the
      * answerer.
      */
-    OfferAnswer createAnswerer(OfferAnswerListener listener, boolean useRelay) 
+    OfferAnswer createAnswerer(OfferAnswerListener<T> listener, boolean useRelay) 
         throws OfferAnswerConnectException;
 
     boolean isAnswererPortMapped();
