@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Class that listens for creation of sockets on the server/answerer side.
  */
-public class AnswererOfferAnswerListener implements OfferAnswerListener {
+public class AnswererOfferAnswerListener implements OfferAnswerListener<Socket> {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final String id;

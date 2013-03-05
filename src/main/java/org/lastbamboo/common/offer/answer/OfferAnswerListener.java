@@ -1,11 +1,10 @@
 package org.lastbamboo.common.offer.answer;
 
-import java.net.Socket;
 
 /**
  * Listener for events from an offer/answer exchange. 
  */
-public interface OfferAnswerListener
+public interface OfferAnswerListener<T>
     {
 
     /**
@@ -16,8 +15,8 @@ public interface OfferAnswerListener
      */
     void onOfferAnswerFailed(OfferAnswer offerAnswer);
 
-    void onTcpSocket(Socket sock);
-    void onUdpSocket(Socket sock);
+    void onTcpSocket(T sock);
+    void onUdpSocket(T sock);
 
 
     }
