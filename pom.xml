@@ -3,7 +3,7 @@
     <groupId>org.littleshoot</groupId>
     <artifactId>offer-answer</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <name>LittleShoot Abstraction for an Offer/Answer Protocol</name>
     <url>http://www.littleshoot.org</url>
 
